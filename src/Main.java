@@ -9,55 +9,51 @@ import static java.lang.System.in;
 
 public class Main {
 
-    public static Scanner sc = new Scanner(in);
+    public static Scanner sc;
     public static List<Client> clients = new ArrayList<>();
 
     public static void main(String[] args) {
-        printMainMenu();
-
+        runMainMenu();
     }
 
-    public static void printMainMenu() {
-        System.out.println(
+    private static void runMainMenu() {
+        System.out.print(
                 """
                         ############################################
                         1. Register client
                         2. List clients
                         ############################################
-                        - Type one of the options:\s
-                        """
+                        - Type one of the options:\s"""
         );
-        mainMenu();
+        inputMainMenu();
     }
 
-    public static void mainMenu() {
-        var option = sc.nextInt();
-        if (option == 1) {
-            registerClient();
-        } else if (option == 2) {
-            listClients();
-        } else {
-            System.out.println("Invalid option!");
-            printMainMenu();
+    private static void inputMainMenu() {
+        var option = scanInt();
+
+        switch (option) {
+            case 1 -> registerClient();
+            case 2 -> listClients();
+            default -> System.out.println("Invalid option!");
         }
+        runMainMenu();
     }
 
-    public static void registerClient() {
-        System.out.println("Type client name: ");
-        final var name = sc.next();
+    private static void registerClient() {
+        System.out.print("\nType client name: ");
+        final var name = scanLine();
 
-        System.out.println("Type client email: ");
-        final var email = sc.next();
+        System.out.print("\nType client email: ");
+        final var email = scanLine();
 
-        System.out.println("Type client phone: ");
-        final var phone = sc.next();
+        System.out.print("\nType client phone: ");
+        final var phone = scanLine();
 
         clients.add(new Client(name, email, phone, false));
         System.out.println("Client registered!");
-        printMainMenu();
     }
 
-    public static void listClients() {
+    private static void listClients() {
         var counter = new AtomicInteger(1);
         clients.forEach(client -> {
             System.out.println(
@@ -65,5 +61,19 @@ public class Main {
             );
             counter.set(counter.get() + 1);
         });
+    }
+
+    private static int scanInt() {
+        cleanScanner();
+        return sc.nextInt();
+    }
+
+    private static String scanLine() {
+        cleanScanner();
+        return sc.nextLine();
+    }
+
+    private static void cleanScanner() {
+        sc = new Scanner(in);
     }
 }
