@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.in;
+import static java.util.Objects.isNull;
 
 public class Main {
 
@@ -29,9 +30,9 @@ public class Main {
     }
 
     private static void inputMainMenu() {
-        var option = scanInt();
+        var input = scanInt();
 
-        switch (option) {
+        switch (input) {
             case 1 -> registerClient();
             case 2 -> listClients();
             default -> System.out.println("Invalid option!");
@@ -54,6 +55,11 @@ public class Main {
     }
 
     private static void listClients() {
+        if (clients.isEmpty()) {
+            System.out.println("No clients to list!");
+            return;
+        }
+
         var counter = new AtomicInteger(1);
         clients.forEach(client -> {
             System.out.println(
@@ -61,6 +67,26 @@ public class Main {
             );
             counter.set(counter.get() + 1);
         });
+        inputClientList();
+    }
+
+    private static void inputClientList() {
+        System.out.print("Type the client number to activate, or zero to return: ");
+        final var input = scanInt();
+
+        if (input == 0) return;
+        final var index = input - 1;
+        final var client = clients.get(index);
+
+        if (isNull(client)) {
+            System.out.println("Invalid option!");
+            listClients();
+        } else if (client.getActive()) {
+            System.out.println("Client already activated!");
+        }
+
+        System.out.println("Client " + client.getName() + " activated!");
+        client.setActive(true);
     }
 
     private static int scanInt() {
