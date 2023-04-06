@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.in;
+import static java.lang.Thread.currentThread;
 import static service.ClientActivationService.activate;
 
 public class Main {
@@ -26,6 +27,7 @@ public class Main {
                         ############################################
                         1. Register client
                         2. List clients
+                        3. Exit Program
                         ############################################
                         - Type one of the options:\s"""
         );
@@ -38,6 +40,7 @@ public class Main {
         switch (input) {
             case 1 -> registerClient();
             case 2 -> listClients();
+            case 3 -> currentThread().interrupt();
             default -> System.out.println("\nInvalid option!");
         }
         runMainMenu();
