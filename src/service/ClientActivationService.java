@@ -4,6 +4,7 @@ import model.Client;
 
 import static notification.EmailNotificator.sendFailureNotification;
 import static notification.EmailNotificator.sendSuccessNotification;
+import static notification.TextNotificator.sendTextNotification;
 
 public class ClientActivationService {
 
@@ -14,5 +15,6 @@ public class ClientActivationService {
         }
         client.setActive(true);
         sendSuccessNotification();
+        sendTextNotification(client);
     }
 }
