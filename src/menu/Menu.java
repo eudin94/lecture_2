@@ -64,6 +64,7 @@ public class Menu {
         }
 
         var counter = new AtomicInteger(1);
+        System.out.println();
         clients.forEach(client -> {
             System.out.println(
                     counter.get() + "- " + client
@@ -74,7 +75,7 @@ public class Menu {
     }
 
     private static void inputClientList() {
-        System.out.print("Type the client number to activate, or zero to return: ");
+        System.out.print("\nType the client number to activate, or zero to return: ");
         var input = scanInt();
 
         if (input == 0) return;
