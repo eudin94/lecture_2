@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.in;
-import static java.lang.Thread.currentThread;
 import static service.ClientActivationService.activate;
 
 public class Main {
@@ -40,7 +39,7 @@ public class Main {
         switch (input) {
             case 1 -> registerClient();
             case 2 -> listClients();
-            case 3 -> currentThread().interrupt();
+            case 3 -> System.exit(0);
             default -> System.out.println("\nInvalid option!");
         }
         runMainMenu();
@@ -97,7 +96,7 @@ public class Main {
     private static int scanInt() {
         try {
             return Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             System.out.print("\nInvalid input! Try again: ");
             return scanInt();
         }
