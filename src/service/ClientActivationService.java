@@ -16,5 +16,6 @@ public class ClientActivationService {
         client.setActive(true);
         sendSuccessNotification();
         sendTextNotification(client);
+        System.out.println();
     }
 }
